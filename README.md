@@ -23,4 +23,4 @@ Finally, the matrix is converted to a data frame, column names are added, and th
 ##Code Book
 * activity: a description of the type of activity being done
 * id: the subject ID 
-* All remaining features are derived from the original dataset.  Note that the column names have been made lowercase and all punctuation has been removed.  So, for example, the “tbodyaccmeanx” column contains the mean of the “tBodyAcc-mean()-X” restricted to the measurement with the specified subject ID and activity.
+* All remaining features are derived from the original dataset.  Note that the column names have been made lowercase and all punctuation has been removed.  So, for example, the “tbodyaccmeanx” column contains the mean of the “tBodyAcc-mean()-X” restricted to the measurement with the specified subject ID and activity.  See “features_info.txt” for details on these columns
