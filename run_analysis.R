@@ -15,6 +15,8 @@ run_analysis <- function(){
   #Extract any column name that contains the string "mean" 
   mean_names<-select(fullDat,contains("mean"))
   std_names<-select(fullDat,contains("std"))
+  
+  #Get number of features, combine the two sets
   numfeat=length(mean_names)+length(std_names)
   data<-cbind(mean_names,std_names)
   
@@ -45,23 +47,8 @@ run_analysis <- function(){
                           "5"="Standing","6"="Laying"))
   
   #Finally Lets Compute the Summary Data as Requested.  First we build a matrix with the mean values
-  Means<-matrix(nrow=180,ncol=numfeat)
-  
-  
-  #Loop through all unique elements in SubjectID and Activity. Filter  
-  #and take column sum.  Fill in matrix as you go
-  Acts=unique(data$activity)
-  ct<-1
-  for(A in Acts){
-    for(i in 1:30){
-      Means[ct,]<-filter(data,activity==A,subjectid==i) %>% select(-c(activity,subjectid)) %>% colMeans()
-      ct<-ct+1
-    }
-  }
-  
-  Means<-as.data.frame(Means)
-  colnames(Means)<-cnames
-  Means<-cbind(arrange(expand.grid(activity=unique(data$activity),id=1:30),activity),Means)
-  write.table(Means,file="TidyData.txt",row.name=FALSE)
-  Means
+  by_groups<-group_by(data,activity,subjectid)
+  means<-summarise_each(by_groups,funs(mean))
+  write.table(means,file="TidyData.txt",row.name=FALSE)
+  means
 }
