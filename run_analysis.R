@@ -46,7 +46,7 @@ run_analysis <- function(){
   data$activity<-revalue(data$activity,c("1"="Walking","2"="Walking_Upstairs","3"="Walking_Downstairs","4"="Sitting",
                           "5"="Standing","6"="Laying"))
   
-  #Finally Lets Compute the Summary Data as Requested.  First we build a matrix with the mean values
+  #Finally Lets Compute the Summary Data as Requested and print the resulting data frame
   by_groups<-group_by(data,activity,subjectid)
   means<-summarise_each(by_groups,funs(mean))
   write.table(means,file="TidyData.txt",row.name=FALSE)
